@@ -1,7 +1,6 @@
 package com.hsbc.kyc.rpr.demo;
 
-import com.hsbc.kyc.rpr.demo.service.DefaultHelloService;
-import com.hsbc.kyc.rpr.demo.service.HelloService;
+import com.hsbc.kyc.rpr.demo.service.RprThreadPool;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,22 +9,21 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-public class App implements CommandLineRunner {
+public class RprConsoleApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
-        SpringApplication.run(App.class, args);
+        SpringApplication.run(RprConsoleApplication.class, args);
     }
 
     @Bean
-    public HelloService getHelloService(){
-        return  new DefaultHelloService();
+    public RprThreadPool getRprThreadPool() {
+        return new RprThreadPool();
     }
 
     @Override
     public void run(String... args) throws Exception {
-        getHelloService().hello();
+        getRprThreadPool().start();
     }
-
 
 
     @Bean
